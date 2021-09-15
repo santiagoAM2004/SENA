@@ -1,0 +1,63 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+.padres{
+    border: 10px;
+    width: 100vw;
+    display: grid;
+    grid-template-areas:"c1 c2 c3"
+                        "c1 c4 c4"
+                        "c5 c5 c6"
+                        "c7 c8 c9";
+    gap: 20px;
+
+}
+
+.padre{
+    border:30px solid white;
+}
+
+.padre img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+}
+
+.hijo1{
+   grid-area:c1;
+}
+
+.hijo2{
+    grid-area:c2;
+}
+
+.hijo3{
+    grid-area:c3;
+}
+
+.hijo4{
+    grid-area:c4;
+}
+
+.hijo5{
+    grid-area:c5;
+}
+
+.hijo6{
+    grid-area:c6; 
+}
+
+.hijo7{
+    grid-area:c7;
+}
+
+.hijo8{
+    grid-area:c8;
+}
+
+.hijo9{
+    grid-area:c9;
+}

@@ -1,0 +1,42 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    background-color: rgb(75, 78, 109);
+    display: flex;
+}
+
+.menu ul{
+    padding: 20px;
+    list-style: none;
+    text-decoration: none;
+    display: flex;
+    justify-content: flex-end;
+   
+}
+
+.logo{
+    top: 100px;
+    width: 100px;
+}
+
+.menu li {
+    display: block;
+    padding: 10px 20px;
+    color:  white;
+    
+}
+
+button{
+    background-color: rgb(75, 78, 109);
+    border-radius: 12px;
+    padding: 2px 18px;
+    transition-duration: 0.4s;
+}
+
+button:hover{
+    background-color: rgb(45, 46, 65); 
+    color: white;
+}

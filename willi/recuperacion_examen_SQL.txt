@@ -1,0 +1,49 @@
+Santiago Arias Mosquera 
+ADSI - 2250070 - SQL 
+
+
+1. Muestre la cantidad de pacientes que hay por cada contrato. Muestre el nombre del contrato 
+y la cantidad de pacientes en cada contrato.
+SELECT p.nombre1, c.nombre, count(*) as cantidad 
+FROM pacientes p, contratos c
+WHERE c.codigo = p.contrato
+GROUP BY p.nombre1, c.nombre
+
+2. Muestre el nombre del servicio (de la tabla servicios) y el valor total promedio al cual se ha 
+facturado cada uno de los servicios (tenga en cuenta el campo vtotal de la tabla detallesfac) 
+SELECT s.nombre, AVG(d.vtotal) as promedio 
+FROM servicios s, detallesfac d
+WHERE s.codigo = d.codigo
+GROUP BY s.nombre
+
+3. Muestre el nombre de la unidad funcional y  los valores facturados consolidados por cada 
+unidad funcional, pero de los contratos que sean de compañías de seguros (tenga en cuenta 
+el campo nombre de la tabla contratos)
+SELECT u.nombre, SUM(d.vtotal) as vfacturados 
+FROM unidadesf u, detallesfac d, contratos c 
+WHERE u.codigo = d.unidadf AND d.contrato = c.codigo AND c.nombre LIKE '%seguro%' 
+GROUP BY u.nombre
+
+4. Muestre el valor total facturado por cada estado civil. muestre el resultado del valor mayor 
+al valor menor. Muestre el nombre del estado civil teniendo en cuenta estos valores: 
+1=Soltero(a) 
+2=Casado(a) 
+3=Unión Libre 
+4=Separado(a) 
+5=Viudo(a) 
+El estado civil está en la tabla pacientes y el valor total está en la tabla detallesfac
+SELECT p.estcivil, SUM(d.vtotal) as vtotal
+FROM pacientes p, detallesfac d
+WHERE p.numero = d.identifica
+GROUP BY p.estcivil
+ORDER BY 2 DESC
+
+5. Muestre los primeros 10 pacientes que han facturado mayores valores en la unidad funcional 
+de laboratorio clínico. Para ello realice un ordenamiento del valor consolidado de mayor a 
+menor. Tenga en cuenta los valores totales que superen los 100.000 (cien mil) Pesos
+SELECT p.nombre1, p.nombre2, SUM(d.vtotal) as  valor_total
+FROM pacientes p, detallesfac d, unidadesf u
+WHERE p.numero = d.identifica AND u.codigo = d.unidadf AND u.nombre LIKE '%laboratorio%'
+GROUP BY p.nombre1, p.nombre2
+HAVING valor_total > 100.000
+ORDER BY 2 DESC LIMIT 10

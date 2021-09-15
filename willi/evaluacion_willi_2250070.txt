@@ -1,0 +1,58 @@
+Santiago Arias Mosquera
+ADSI - 2250070 
+
+1. Muestre la cantidad de jugadores por cada país.
+
+SELECT p.nombre, COUNT(j.nombres) as jugadores 
+FROM jugadores j, paises p 
+WHERE j.idpais=p.idpais 
+GROUP BY p.nombre
+
+2. Muestre los jugadores que más juegos tienen como preferencia. En la tabla jugadores_juegos
+se registran los juegos que le gustan a cada jugador.
+
+SELECT j.nombre ,jj.idjuego,COUNT(*) as juegos 
+FROM jugadores_juegos jj, juegos j
+WHERE j.idjuego=jj.idjuego 
+GROUP BY j.nombre ,jj.idjuego
+
+3. Muestre los jugadores que tienen más de 5 juegos como preferencia.
+
+SELECT j.nombres, COUNT(jj.idjuego) as juegos_preferencia
+FROM jugadores_juegos jj, jugadores j
+WHERE jj.idjuego=j.idjugador AND jj.idjuego > 5
+GROUP BY j.nombres
+
+4. Halle el valor total de los pagos hechos por cada edad de los jugadores. En la tabla 
+sesiones_detalle está el valor que pagó cada jugador por consumir ese juego(campo precio)
+
+SELECT j.edad, sum(s.precio) as valor_total
+FROM jugadores j, sesiones_detalle s
+WHERE j.idjugador=s.idjugador
+GROUP BY j.edad
+
+5. ¿Cuántos jugadores hay por cada género (sexo del jugador M ó F)?
+
+SELECT genero, COUNT(nombres) as jugadores 
+FROM jugadores GROUP BY genero
+
+6. Muestre cuales juegos son los que más han tenido demanda. Tenga en cuenta las sesiones 
+que ha tenido cada uno de los juegos
+
+SELECT p.nombre, sum(s.precio) as valor_total 
+FROM paises p, sesiones_detalle s 
+GROUP BY p.nombre
+
+7. ¿Cuáles sesiones han tenido una mayor ganancia de dinero? Muestre la fecha y la hora de 
+inicio, el número de participantes y el nombre del juego.
+8. ¿Cuántos juegos existen por cada género? (tipo de juego: ejemplo: Futbol, Luchas, Acción, Etc)
+9. ¿De qué países ha recibido más ingresos la plataforma de Juegos? Realice una consulta para 
+mostrar los 5 primeros países.
+
+10. Muestre los 10 primeros juegos (muestre el nombre) que han tenido mayor número de 
+participantes.
+
+SELECT j.nombre, s.numparticipantes
+FROM juegos j , sesiones s 
+WHERE s.idjuego=j.idjuego
+ORDER BY S.numparticipantes DESC LIMIT 1
