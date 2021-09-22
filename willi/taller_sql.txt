@@ -1,0 +1,14 @@
+-- 1. Seleccione los registros de la tabla detallesfacdonde el tipo de documento sea cedula de ciudadanía.
+SELECT * FROM detallesfac WHERE documento = 'CC';
+
+-- 2. Seleccione  los  campos  factura,  contrato,  fecha,  hora  y  descripción  de  los detalles de facturación donde los minutos correspondan al minuto 30 de cada hora
+SELECT factura, contrato, fecha, hora, descripción FROM detallesfac WHERE hora LIKE '%:30%';
+
+-- 3. Seleccione todos los registros de detallesfac donde exista la palabra CONTROL en la descripción.
+SELECT * FROM detallesfac WHERE descripcion LIKE '%CONTROL%';
+
+-- 4. Seleccione todos los registros de detallesfac donde exista la palabra CONTROL y  además  la  palabra  ENFERMERIA y  también  los  registros  donde  exista  la palabra CONTROL y además la palabra MEDICINA
+SELECT * FROM detallesfac WHERE descripcion LIKE('%CONTROL%') and descripcion LIKE('%ENFERMERIA%') AND descripcion LIKE('%MEDICINA%');
+
+-- 5. Seleccione de detallesfac los códigos(campo código) que terminen en las letras CP
+SELECT codigo FROM detallesfac WHERE codigo LIKE 'CP%'
