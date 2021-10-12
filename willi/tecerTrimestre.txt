@@ -1,0 +1,27 @@
+insert into manuales(codigo, nombre, base, anno)
+values('01', 'manual 2021', 0, 2021);
+
+insert into eps(codigo, nombre, direccion, telefono, contacto, tipoentidad, manual)
+values('EPS001', 'Sanitas', 'Armenia', '342342342', 'Diego Arias', 'Privada', '01');
+
+insert into pacientes(documento,tipodoc, papellido, sapellido, pnombre, snombre, direccion, telefono, eps, genero, discapacidad)
+values('1092454221', 'TI', 'Arias', 'Mosquera', 'Santiago', '', 'Corbones', '3158541344', 'EPS001', 'M', '');
+
+insert into pacientes(documento,tipodoc, papellido, sapellido, pnombre, snombre, direccion, telefono, eps, genero, discapacidad)
+values('10934254221', 'CC', 'Jimenez', 'Melo', 'Carla', '', 'Americas', '3213456', 'EPS001', 'F', '')
+
+insert into pacientes(documento,tipodoc, papellido, sapellido, pnombre, snombre, direccion, telefono, eps, genero, discapacidad)
+values('1023454221', 'TI', 'Arias', 'Mosquera', 'Jeronimo', 'Camilo', 'Corbones', '3158541344', null, 'M', '')
+
+select p.pnombre, p.snombre, p.papellido, p.sapellido, p.direccion, p.telefono, e.nombre, e.direccion, e.telefono
+from pacientes p, eps e
+where p.eps = e.codigo
+
+select p.pnombre, p.snombre, p.papellido, p.sapellido, p.direccion, p.telefono, e.nombre as EPSnombre, e.direccion as EPSdicc, e.telefono as EPStelf
+from pacientes p inner join eps e on p.eps = e.codigo 
+
+select p.pnombre, p.snombre, p.papellido, p.sapellido, p.direccion, p.telefono, e.nombre as EPSnombre, e.direccion as EPSdicc, e.telefono as EPStelf, m.nombre as Mnombre
+from pacientes p inner join eps e on p.eps = e.codigo inner join manuales m on m.codigo = e.manual
+
+select p.pnombre, p.snombre, p.papellido, p.sapellido, p.direccion, p.telefono, e.nombre as EPSnombre, e.direccion as EPSdicc, e.telefono as EPStelf, m.nombre as Mnombre
+from pacientes p left join eps e on p.eps = e.codigo left join manuales m on m.codigo = e.manual
