@@ -1,0 +1,56 @@
+/*Santiago Arias Mosquera
+2250070 - ADSI*/
+
+/* 1 Seleccione los nombres del aprendiz, el id de la asesoría, la fecha y hora de la asesoría de las asesorías 
+en estado Anulada. Asegúrese de mostrar SOLO los registros con un aprendiz relacionado y los datos 
+de las asesorías. (no pueden aparecer valores Nulos)*/
+
+SELECT a.nombres, s.idasesoria, s.fecha, s.hora
+from aprendices a left join asesorias s on a.documento = s.aprendiz
+where s.estado = "anulada"
+
+/*2 Seleccione los apellidos y nombres del aprendiz, el nombre del programa de formación de los aprendices 
+que sean de ADSI. Muestre también el id de la asesoría SÓLO cuando pertenezca dicha asesoría a un 
+aprendiz relacionado.  (no  pueden  salir  valores  nulos  en los datos  del aprendiz  ni  en los datos  de las 
+asesorías) */
+
+select a.nombres, a.apellidos, p.nombre as programa, s.idasesoria
+from aprendices a left join programas p on a.programa = p.codigo inner join asesorias s on a.documento = s.aprendiz 
+where p.nombre = "ADSI" and s.idasesoria
+
+/* 3 Seleccione los datos de la asesoría, idasesoria, fecha y hora, los apellidos y nombres  
+del aprendiz, el nombre del programa de formación de los  aprendices, nombre del instructor y nombre 
+del asesor. SIEMPRE debe existir los datos del instructor, pero no interesa si existe o no datos del asesor 
+o del aprendiz (pueden quedar nulos). Ordene los datos por el id de la asesoría.*/  
+
+select s.idasesoria, s.fecha, s.hora, a.apellidos, a.nombres, p.nombre as NPrograma, i.nombre as NInstructor, r.nombres as NAsesor
+from instructores i left join asesorias s on i.login = s.instructor left join aprendices a on a.documento = s.aprendiz left join programas p on p.codigo = a.programa left join  asesores r on r.codigo  = s.asesor
+order by s.idasesoria
+
+/* 4 Muestre la cantidad de asesorías que se han brindado por cada programa de formación. Debe mostrar 
+el nombre del programa de formación y cuantas asesorías se han brindado en cada programa. Deben 
+aparecer  TODOS  los  programas  de  formación  así  ninguno  de  los  aprendices  haya  tenido  asesorías relacionadas. 
+Si un programa de formación no ha tenido aprendices relacionados en las asesorías, debe 
+aparecer el nombre del programa de formación y la cantidad en cero*/
+
+SELECT p.nombre, count(s.idasesoria) as NAsesorias
+FROM aprendices a INNER JOIN programas p ON a.programa = p.codigo
+LEFT JOIN asesorias s ON a.documento = s.aprendiz
+GROUP BY p.nombre
+
+/* 5.Muestre la cantidad de asesorías que ha brindado cada instructor. Sólo muestre los instructores con más 
+de 3 asesorías */
+
+SELECT i.nombre, count(s.idasesoria) as Asesorias
+FROM instructores i INNER JOIN asesorias s ON s.instructor = i.login
+GROUP BY i.nombre
+HAVING Asesorias > 3
+ORDER BY Asesorias
+
+
+
+
+
+
+
+
